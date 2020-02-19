@@ -1,0 +1,103 @@
+import java.io.*;
+import java.util.*;
+public class BS { // Creating the card game BS
+	public static void main(String [] args) {
+		
+		Scanner sc = new Scanner(System.in);
+		Deck deck = new Deck(false);
+		deck.shuffle();
+/**********************************************Step 1: Get the Number of Players**************************************************/		
+		int numOfPlayers;
+		System.out.println("Number of Players: ");		// Get the # of players from the
+		numOfPlayers = Integer.parseInt(sc.nextLine());  // keyboard
+		while(numOfPlayers > 4 || numOfPlayers <= 1) {
+			System.out.println("Too many players, must be 2-4 players"); // Makes sure # of players
+			System.out.println("Number of Players: ");				  // does not exceed 8
+			numOfPlayers = Integer.parseInt(sc.nextLine());
+		}
+/**********************************************Step 1: Get the Number of Players**************************************************/		
+		
+/***************************************************Step 2: Deal the Cards********************************************************/
+		ArrayList<ArrayList<Card>> hands = new ArrayList<>();
+		Card dealtCard = new Card();
+		ArrayList<Card> list1 = new ArrayList<>(); // Each list represents a hand that will have a certain amount of cards
+		ArrayList<Card> list2 = new ArrayList<>(); // This will be 2 - 4 person game so there will be at most 4 hands
+		ArrayList<Card> list3 = new ArrayList<>();
+		ArrayList<Card> list4 = new ArrayList<>();
+		
+		switch(numOfPlayers){ // Depending on the amount of players, the cards will be dealt differently
+		case 2:
+				for(int i = 0; i < 52/numOfPlayers; i++) { // 31 cards will be dealt to each player
+					dealtCard = deck.dealCard();
+					list1.add(dealtCard); // Player 1's hand
+					dealtCard = deck.dealCard();
+					list2.add(dealtCard); // Player 2's hand
+				}
+			hands.add(list1); // They are then added to the overall hands ArrayList
+			hands.add(list2);
+			break;
+			
+		case 4:
+			for(int i = 0; i < 52/numOfPlayers; i++) {
+				dealtCard = deck.dealCard();
+				list1.add(dealtCard); // Player 1's hand
+				dealtCard = deck.dealCard();
+				list2.add(dealtCard); // Player 2's hand
+				dealtCard = deck.dealCard();
+				list3.add(dealtCard); // Player 3's hand
+				dealtCard = deck.dealCard();
+				list4.add(dealtCard); // Player 4's hand
+			}
+			hands.add(list1);
+			hands.add(list2);
+			hands.add(list3);
+			hands.add(list4);
+			break;
+			
+		default:
+			for(int i = 0; i < 52/numOfPlayers; i++) {
+				dealtCard = deck.dealCard();
+				list1.add(dealtCard); // Player 1's hand
+				dealtCard = deck.dealCard();
+				list2.add(dealtCard); // Player 2's hand
+				dealtCard = deck.dealCard();
+				list3.add(dealtCard); // Player 3's hand
+			}
+			dealtCard = deck.dealCard(); // There will be 1 card left over 
+			list1.add(dealtCard);		// Which will then be given to
+			hands.add(list1);			// Player 1
+			hands.add(list2);
+			hands.add(list3);
+			break;
+		}
+	/*************************************************Step 2: Deal the Cards******************************************************/
+		
+	/*************************************************Step 3: Start the Pile******************************************************/	
+		Stack<Card> thePile = new Stack<>();
+		Card aceOfSpades = new Card(1,3);
+		int index = 0;
+		int placeHolder = 0; // Keeps track of the rotation, the next person after player who plays the ace of spades will go
+		for(int i = 0; i < numOfPlayers; i++) {
+			if(hands.get(i).contains(aceOfSpades))
+				index = hands.get(i).indexOf(aceOfSpades);
+			placeHolder = i;
+			thePile.push(hands.get(i).get(index));
+		}
+		if(placeHolder == 3)
+			placeHolder = 0;
+		else
+			placeHolder++;
+	/*************************************************Step 3: Start the Pile******************************************************/
+		int actualNumber = 2;
+		while(!hands.get(0).isEmpty() || !hands.get(1).isEmpty() || !hands.get(2).isEmpty() || !hands.get(3).isEmpty()) {
+			for(int i = 0; i < hands.get(placeHolder).size(); i++) {
+				
+			}
+		}
+		
+		
+	
+	}
+	
+
+}
