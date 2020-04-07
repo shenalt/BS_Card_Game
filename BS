@@ -3,6 +3,8 @@ import java.util.*;
 public class BS { // Creating the card game BS
 	public static void main(String [] args) {
 		// Problem is the beginning, the ace of spades isn't being removed and isn't being played from the correct hand half the time
+		// End product must find the person with the Ace of Spades and start the game with the Player's card
+
 		
 		/*  ________________
 		 * |GLOBAL VARIABLES|
